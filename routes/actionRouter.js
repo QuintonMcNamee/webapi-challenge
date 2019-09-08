@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const id = req.params.id;
 
-  projectDb.getProjectActions(id)
+  projectDb.get(id)
     .then(response => {
       res.status(200).json(response);
     })
@@ -61,11 +61,11 @@ router.delete('/:id', (req, res) => {
 
 router.put('/:id', validateLength, (req, res) => {
   const id = req.params.id;
-  const something = req.body;
 
   actionDb.get(id)
     .then(response => {
-      actionDb.update(id, response)
+      req.body.project_id = response.project_id;
+      actionDb.update(id, req.body)
         .then(response => {
           res.status(200).json(response);
         })

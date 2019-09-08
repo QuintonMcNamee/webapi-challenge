@@ -14,11 +14,11 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', validateId, (req, res, next) => {
+router.get('/:id', validateId, (req, res) => {
   const id = req.params.id;
 
   projectDb.get(id)
-    .them(response => {
+    .then(response => {
       res.status(200).json(response);
     })
     .catch(error => {
@@ -52,11 +52,10 @@ router.delete('/:id', validateId, (req, res) => {
 
 router.put('/:id', validateId, (req, res) => {
   const id = req.params.id;
-  const test = req.body;
 
-  userDb.update(id, test)
+  projectDb.update(id, req.body)
     .then(response => {
-      res.status(200).json(update);
+      res.status(200).json(response);
     })
     .catch(error => {
       console.log(error);
@@ -65,7 +64,7 @@ router.put('/:id', validateId, (req, res) => {
 
 // custom middleware
 
-const validateId(req, res, next) {
+function validateId(req, res, next) {
   const id = req.params.id;
 
   projectDb.get(id)

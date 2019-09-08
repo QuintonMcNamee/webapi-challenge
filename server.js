@@ -10,8 +10,8 @@ server.use(express.json());
 server.use(logger); // custom middleware used globally
 
 // local middleware
-server.use('/actions', postRouter);
-server.use('/projects', userRouter);
+server.use('/actions', actionRouter);
+server.use('/projects', projectRouter);
 
 //custom middleware
 function logger(req, res, next) {
