@@ -90,3 +90,5 @@ function validateLength(req, res, next) {
     res.status(404).json({ message: "Error"});
   };
 };
+
+module.exports = router;
