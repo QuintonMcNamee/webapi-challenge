@@ -9,7 +9,7 @@ const server = express();
 server.use(express.json());
 server.use(logger); // custom middleware used globally
 
-// local middleware
+// route handlers
 server.use('/actions', actionRouter);
 server.use('/projects', projectRouter);
 
@@ -22,7 +22,7 @@ function logger(req, res, next) {
   next();
 };
 
-// route handlers
+// failsafe
 server.get('/', (req, res) => {
   res.send(`<h2>Let's write some middleware!</h2>`)
 });
